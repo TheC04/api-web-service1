@@ -5,7 +5,7 @@ using MySql.Data.MySqlClient;
 using System.Configuration;
 using System.Diagnostics;
 using System.Xml.Linq;
-using TodoApi.Models;
+using api-web-service1.Models;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,11 +24,12 @@ IConfiguration configuration = new ConfigurationBuilder()
    .Build();
 //MySqlConnection conn = new MySqlConnection("server=localhost;user id=todoapp;password=todoapp;database=todoapp");
 string? s = configuration.GetConnectionString("TodoDB");
+/*builder.Services.AddDbContext<>(options => options.UseMySql(s, ServerVersion.AutoDetect(s)));
 builder.Services.AddDbContext<>(options => options.UseMySql(s, ServerVersion.AutoDetect(s)));
 builder.Services.AddDbContext<>(options => options.UseMySql(s, ServerVersion.AutoDetect(s)));
 builder.Services.AddDbContext<>(options => options.UseMySql(s, ServerVersion.AutoDetect(s)));
-builder.Services.AddDbContext<>(options => options.UseMySql(s, ServerVersion.AutoDetect(s)));
-builder.Services.AddDbContext<>(options => options.UseMySql(s, ServerVersion.AutoDetect(s)));
+builder.Services.AddDbContext<>(options => options.UseMySql(s, ServerVersion.AutoDetect(s)));*/
+//mettere i context
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
