@@ -24,7 +24,7 @@ IConfiguration configuration = new ConfigurationBuilder()
    .Build();
 //MySqlConnection conn = new MySqlConnection("server=localhost;user id=todoapp;password=todoapp;database=todoapp");
 string? s = configuration.GetConnectionString("api-web-serviceDb");
-builder.Services.AddDbContext<PostContext>(options => options.UseMySql(s, ServerVersion.AutoDetect(s));
+builder.Services.AddDbContext<PostContext>(options => options.UseMySql(s, ServerVersion.AutoDetect(s)));
 builder.Services.AddDbContext<UserContext>(options => options.UseMySql(s, ServerVersion.AutoDetect(s)));
 builder.Services.AddDbContext<FollowContext>(options => options.UseMySql(s, ServerVersion.AutoDetect(s)));
 var app = builder.Build();
