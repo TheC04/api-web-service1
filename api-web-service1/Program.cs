@@ -5,7 +5,7 @@ using MySql.Data.MySqlClient;
 using System.Configuration;
 using System.Diagnostics;
 using System.Xml.Linq;
-using api-web-service1.Models;
+using api_web_service1.Models;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,13 +23,10 @@ IConfiguration configuration = new ConfigurationBuilder()
    .AddJsonFile("appsettings.json", true, true)
    .Build();
 //MySqlConnection conn = new MySqlConnection("server=localhost;user id=todoapp;password=todoapp;database=todoapp");
-string? s = configuration.GetConnectionString("TodoDB");
-/*builder.Services.AddDbContext<>(options => options.UseMySql(s, ServerVersion.AutoDetect(s)));
-builder.Services.AddDbContext<>(options => options.UseMySql(s, ServerVersion.AutoDetect(s)));
-builder.Services.AddDbContext<>(options => options.UseMySql(s, ServerVersion.AutoDetect(s)));
-builder.Services.AddDbContext<>(options => options.UseMySql(s, ServerVersion.AutoDetect(s)));
-builder.Services.AddDbContext<>(options => options.UseMySql(s, ServerVersion.AutoDetect(s)));*/
-//mettere i context
+string? s = configuration.GetConnectionString("api-web-serviceDb");
+builder.Services.AddDbContext<PostContext>(options => options.UseMySql(s, ServerVersion.AutoDetect(s));
+builder.Services.AddDbContext<UserContext>(options => options.UseMySql(s, ServerVersion.AutoDetect(s)));
+builder.Services.AddDbContext<FollowContext>(options => options.UseMySql(s, ServerVersion.AutoDetect(s)));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
