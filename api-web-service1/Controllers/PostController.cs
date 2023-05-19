@@ -1,6 +1,7 @@
 ﻿using api_web_service1.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -13,9 +14,10 @@ namespace api_web_service1.Controllers
         private readonly PostContext _context;
         private readonly UserContext _contextuser;
     
-        public PostController(PostContext context)
+        public PostController(PostContext context, UserContext userContext)
         {
             _context = context;
+            _contextuser = userContext;
         }
     
         [HttpGet]
@@ -85,12 +87,32 @@ namespace api_web_service1.Controllers
         }
     
         [HttpPost]
-        public async Task<ActionResult<Post>> PostPost(Post item)
+        public async Task<ActionResult<Post>> PostPost(Post item, string password)
         {
-            _context.Posts.Add(item);
-            await _context.SaveChangesAsync();
-    
-            return CreatedAtAction(nameof(GetPost), new { id = item.Id }, item);
+            string hash = "";
+            using (SHA512 shaM = new SHA512Managed())
+            {
+                hash = Encoding.ASCII.GetString(shaM.ComputeHash(Encoding.ASCII.GetBytes(password)));
+            }
+            if(password is null)
+            {
+                return BadRequest("Password non inserita");
+            }
+            else
+            {
+                User pass = await _contextuser.Users.FindAsync(item.user_Id);
+                if (pass.Password == hash)
+                {
+                    _context.Posts.Add(item);
+                    await _context.SaveChangesAsync();
+
+                    return CreatedAtAction(nameof(GetPost), new { id = item.Id }, item);
+                }
+                else
+                {
+                    return BadRequest("Password non corrispondente");
+                }
+            }
         }
     }
 }

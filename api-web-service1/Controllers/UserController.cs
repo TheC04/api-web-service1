@@ -60,7 +60,7 @@ namespace api_web_service1.Controllers
 
             if (User is not null)
             {
-                post = await _contextpost.Post.FindAsync(User.Id);
+                post = await _contextpost.Posts.FindAsync(User.Id);
             }
             else
             {
