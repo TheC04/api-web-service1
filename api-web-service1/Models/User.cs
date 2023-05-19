@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace api_web_service1.Models
 {
-    [Table("users", Schema = "api-web_service1")]
+    [Table("user", Schema = "api-web_service1")]
     public class User
     {
         public int Id { get; set; }

@@ -16,14 +16,15 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-//builder.Services.AddDbContext<TodoContext>(opt => opt.UseMySql(builder.Configuration.GetConnectionString("TodoDB")));
+//builder.Services.AddDbContext<TodoContext>(opt => opt.UseMySql(builder.Configuration.GetConnectionString("api-web-serviceDb")));
 
 
 IConfiguration configuration = new ConfigurationBuilder()
    .AddJsonFile("appsettings.json", true, true)
    .Build();
 //MySqlConnection conn = new MySqlConnection("server=localhost;user id=todoapp;password=todoapp;database=todoapp");
-string? s = configuration.GetConnectionString("api-web-serviceDb");
+string? s = configuration.GetConnectionString("api-web-service");
+Console.WriteLine(s);
 builder.Services.AddDbContext<PostContext>(options => options.UseMySql(s, ServerVersion.AutoDetect(s)));
 builder.Services.AddDbContext<UserContext>(options => options.UseMySql(s, ServerVersion.AutoDetect(s)));
 builder.Services.AddDbContext<FollowContext>(options => options.UseMySql(s, ServerVersion.AutoDetect(s)));
@@ -43,4 +44,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
